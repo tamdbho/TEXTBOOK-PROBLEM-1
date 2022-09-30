@@ -1,0 +1,33 @@
+def calculate_kmer(dna):
+    dna = dna.replace('\n','')
+    k = int(input('Enter k-value: '))
+    frequency = int(input('Enter frequency: '))
+    kmers = []
+    non_distinct_kmer = []
+    kmer_and_count = {}
+    for i in range (0,len(dna),1):
+        mer = dna[i:i+k]
+        kmers.append(mer)
+        for kmer in kmers:
+            if len(kmer) < k:
+                kmers.remove(kmer)
+                for correct_kmer in kmers:
+                    kmer_count = kmers.count(correct_kmer)
+                    kmer_and_count [correct_kmer] = kmer_count
+    for correct_kmer in kmer_and_count:
+        if kmer_and_count [correct_kmer] > frequency:
+            non_distinct_kmer.append(correct_kmer)
+    print('Kmers appear more than ' + str(frequency) + ' times :')
+    print(non_distinct_kmer)
+    print('Number of Kmers: ' + str(len(kmers)))
+    print ('List of all Kmers: ')
+    return kmers
+
+dna.dir = input('Enter directory: ')
+dna = open(dna.dir)
+dna = dna.read()
+print(calculate_kmer(dna))
+
+
+
+
